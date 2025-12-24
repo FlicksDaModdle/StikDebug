@@ -69,24 +69,23 @@ void installationProxyCallback(uint64_t progress, struct InstallationProxyCallba
     }
     
     plist_t *app_list = (plist_t *)apps;
-    do {
-        NSMutableArray* ans = [[NSMutableArray alloc] init];
-        for(int i = 0; i < apps_len; ++i) {
-            NSError* err2 = 0;
-            NSDictionary* appDict = dictionaryFromPlist(app_list[i], &err2);
-
-            if(err2) {
-                replyHandler(nil, @"failed to parse plist data");
-                break;
-            }
-            [ans addObject:appDict];
-        }
-        replyHandler(ans, nil);
-    } while(0);
-
+    NSMutableArray* ans = [[NSMutableArray alloc] init];
     for(int i = 0; i < apps_len; ++i) {
-        plist_free(app_list[i]);
+        char* buf = 0;
+        uint32_t plistlen = 0;
+        plist_to_bin(app_list[i], &buf, &plistlen);
+        NSError* err2 = 0;
+        NSDictionary* appDict = dictionaryFromPlistData([NSData dataWithBytes:buf length:plistlen], &err2);
+        plist_mem_free(buf);
+        if(err2) {
+            replyHandler(nil, @"failed to parse plist data");
+            return;
+        }
+        [ans addObject:appDict];
     }
+    replyHandler(ans, nil);
+    
+    
 }
 
 - (void)installation_proxy_installWithBody:(NSDictionary *)body replyHandler:(nonnull void (^)(id _Nullable, NSString * _Nullable))replyHandler {
@@ -267,33 +266,33 @@ void installationProxyCallback(uint64_t progress, struct InstallationProxyCallba
         plist_from_memory((void*)[optionsNSData bytes], (uint32_t)[optionsNSData length], &optionsPlist, 0);
     }
     
-    plist_t *app_list = NULL;
+    plist_t *apps = NULL;
     size_t apps_len = 0;
-    IdeviceFfiError* err = installation_proxy_browse(client, optionsPlist, &app_list, &apps_len);
+    IdeviceFfiError* err = installation_proxy_browse(client, optionsPlist, &apps, &apps_len);
 
     if (err) {
         replyHandler(nil, [self errFreeFromIdeviceFfiError:err]);
         return;
     }
     
-    do {
-        NSMutableArray* ans = [[NSMutableArray alloc] init];
-        for(int i = 0; i < apps_len; ++i) {
-            NSError* err2 = 0;
-            NSDictionary* appDict = dictionaryFromPlist(app_list[i], &err2);
-
-            if(err2) {
-                replyHandler(nil, @"failed to parse plist data");
-                break;
-            }
-            [ans addObject:appDict];
-        }
-        replyHandler(ans, nil);
-    } while(0);
-
+    NSMutableArray* ans = [[NSMutableArray alloc] init];
     for(int i = 0; i < apps_len; ++i) {
-        plist_free(app_list[i]);
+        char* buf = 0;
+        uint32_t plistlen = 0;
+        plist_to_bin(apps[i], &buf, &plistlen);
+        NSError* err2 = 0;
+        NSDictionary* appDict = dictionaryFromPlistData([NSData dataWithBytes:buf length:plistlen], &err2);
+        plist_mem_free(buf);
+        if(err2) {
+            replyHandler(nil, @"failed to parse plist data");
+            return;
+        }
+        [ans addObject:appDict];
+        if([ans count] >= 100) {
+            break;
+        }
     }
+    replyHandler(ans, nil);
     
     
 }

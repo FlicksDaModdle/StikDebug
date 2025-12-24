@@ -1,5 +1,7 @@
 <div align="center">
+   <a href="https://apps.apple.com/us/app/stikdebug/id6744045754" target="_blank" rel="noopener noreferrer">
    <img width="217" height="217" src="/assets/StikJIT.png" alt="Logo">
+   </a>
 </div>
    
 
@@ -23,14 +25,23 @@
   <br />
 </h6>
 
-# Download
+## Download
 <div align="center" style="display: flex; justify-content: center; align-items: center; gap: 16px; flex-wrap: wrap;">
-   <a href="https://celloserenity.github.io/altdirect/?url=https://stikdebug.xyz/index.json" target="_blank">
-  <img src="https://github.com/CelloSerenity/altdirect/blob/main/assets/png/AltSource_Blue.png?raw=true" alt="Add AltSource" width="200">
-   </a>
-   <a href="https://github.com/StephenDev0/StikDebug/releases/download/2.3.6/StikDebug-2.3.6.ipa" target="_blank">
-  <img src="https://github.com/CelloSerenity/altdirect/blob/main/assets/png/Download_Blue.png?raw=true" alt="Download .ipa" width="200">
-   </a>
+  <a href="https://apps.apple.com/us/app/stikdebug/id6744045754" target="_blank" rel="noopener noreferrer">
+    <img 
+      src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" 
+      alt="Download on the App Store"
+      style="height: 80px; width: auto; border-radius: 14px;"
+    >
+  </a>
+  <a href="https://intradeus.github.io/http-protocol-redirector?r=altstore://source?url=https://StikDebug.xyz/apps.json" 
+     target="_blank" rel="noopener noreferrer">
+    <img 
+      src="https://github.com/user-attachments/assets/0cadc474-ca12-4b83-b04c-2962087cabcb" 
+      alt="Add to AltStore PAL"
+      style="height: 80px; width: auto; border-radius: 14px;"
+    >
+  </a>
 </div>
 
 ## Code Help
@@ -38,9 +49,10 @@
 
 ## Features  
 - On-device debugging/Just-In-Time (JIT) compilation for supported apps via [`idevice`](https://github.com/jkcoxson/idevice).  
-- No special VPN/Network Extension entitlements required.  
+- Seamless integration with our custom-built loopback vpn.  
 - Native UI for managing debugging/JIT-enabling.  
 - No data collection—ensuring full privacy. 
 
 ## License  
 StikDebug is licensed under **AGPL-3.0**. See [`LICENSE`](LICENSE) for details.  
+

@@ -3,7 +3,6 @@ import WebKit
 
 struct MiniToolRunnerView: View {
     let tool: MiniToolBundle
-    let toolInfo: ToolInfo
     @StateObject private var runtime: MiniToolRuntime
     @State private var showLogs = false
     @State private var initiated = false
@@ -14,10 +13,9 @@ struct MiniToolRunnerView: View {
     private var backgroundStyle: BackgroundStyle { themeExpansion?.backgroundStyle(for: appThemeRaw) ?? AppTheme.system.backgroundStyle }
     private var preferredScheme: ColorScheme? { themeExpansion?.preferredColorScheme(for: appThemeRaw) }
 
-    init(tool: MiniToolBundle, toolInfo: ToolInfo) {
+    init(tool: MiniToolBundle) {
         self.tool = tool
-        self.toolInfo = toolInfo
-        _runtime = StateObject(wrappedValue: MiniToolRuntime(tool: tool, toolInfo: toolInfo))
+        _runtime = StateObject(wrappedValue: MiniToolRuntime(tool: tool))
     }
 
     var body: some View {

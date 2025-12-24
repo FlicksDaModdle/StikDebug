@@ -103,7 +103,7 @@ final class DeviceLibraryStore: ObservableObject {
         DeviceProfileEntry(
             id: localLoopbackID,
             name: "This Device",
-            ipAddress: "10.7.0.1",
+            ipAddress: "10.7.0.2",
             pairingRelativePath: "",
             pairingFilename: "pairingFile.plist",
             dateAdded: Date.distantPast,

@@ -23,10 +23,9 @@
 @interface IDeviceJSBridge : NSObject {
     NSMutableDictionary<NSNumber*, IDeviceHandle*>* handles;
     NSMutableDictionary<NSNumber*, NSData*>* dataPool;
-    NSArray<NSString*>* allowedFunctions;
     JSContext* context;
 }
-- (instancetype)initWithContext:(JSContext*)context allowedFunctions:(NSArray<NSString*>*)allowedFunctions;
+- (instancetype)initWithContext:(JSContext*)context;
 - (void)didReceiveScriptMessage:(NSDictionary *)message resolve:(JSValue*)resolveFunc reject:(JSValue*)rejectFunc;
 - (void)cleanUp;
 - (NSString*)errFreeFromIdeviceFfiError:(IdeviceFfiError*)err;
@@ -37,6 +36,6 @@
 @end
 
 
-NSDictionary *dictionaryFromPlist(plist_t plist, NSError **error);
+NSDictionary *dictionaryFromPlistData(NSData *plistData, NSError **error);
 NSData *plistDataFromDictionary(NSDictionary *dictionary, NSError **error);
 const char** cstrArrFromNSArray(NSArray* arr, int* validCount);

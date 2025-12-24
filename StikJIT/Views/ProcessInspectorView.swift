@@ -127,7 +127,7 @@ private extension ProcessInspectorView {
                                 isConfirming: killCandidate?.pid == process.pid,
                                 onKillTap: { handleKillTap(for: $0) }
                             )
-                            .padding(.vertical, 6)
+                            .padding(.vertical, 10)
                             
                             if process.id != viewModel.filteredProcesses.last?.id {
                                 Divider()
@@ -170,23 +170,23 @@ private struct ProcessRow: View {
     let onKillTap: (ProcessInfoEntry) -> Void
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
+        VStack(alignment: .leading, spacing: 6) {
             HStack {
                 Text(process.displayName)
-                    .font(.subheadline.weight(.semibold))
+                    .font(.headline)
                 Spacer()
                 Text("PID \(process.pid)")
-                    .font(.caption2)
+                    .font(.caption)
                     .foregroundStyle(.secondary)
             }
             if let bundle = process.bundleID, !bundle.isEmpty {
                 Text(bundle)
-                    .font(.caption2)
+                    .font(.caption)
                     .foregroundStyle(.secondary)
                     .textSelection(.enabled)
             }
             Text(process.executablePath)
-                .font(.caption2)
+                .font(.caption)
                 .foregroundStyle(.secondary)
                 .textSelection(.enabled)
             HStack {
@@ -209,13 +209,12 @@ private struct ProcessRow: View {
                         }
                     }
                     .buttonStyle(.bordered)
-                    .controlSize(.small)
                     .tint(isConfirming ? .green : .red)
                     .labelStyle(.iconOnly)
                 }
             }
         }
-        .padding(.vertical, 4)
+        .padding(.vertical, 8)
     }
 }
 

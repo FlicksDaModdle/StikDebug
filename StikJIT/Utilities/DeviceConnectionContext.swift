@@ -13,13 +13,13 @@ enum DeviceConnectionContext {
     }
     
     static var requiresLoopbackVPN: Bool {
-        false
+        !isUsingExternalDevice
     }
     
     static var targetIPAddress: String {
         if let device = DeviceLibraryStore.shared.activeDevice {
             return device.ipAddress
         }
-        return "127.0.0.1"
+        return UserDefaults.standard.string(forKey: "TunnelDeviceIP") ?? "10.7.0.2"
     }
 }
